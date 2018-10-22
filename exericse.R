@@ -15,17 +15,33 @@ View(team.data)
 
 
 # Add a column that gives the turnovers to steals ratio (TOV / STL) for each team
+team.data$stealsRatio <- (team.data$TOV / team.data$STL)
 
+## I accidently made another column but not sure how to delete it....
 
 # Sort the teams from lowest turnover/steal ratio to highest
-
+team.data %>% 
+  arrange(stealsRatio)
 
 #Find the average BLK and STL for teams having a TOV greater than the average TOV of all teams
 
+## use this inside the filter: 
+  # avg_tov_allteams <- mean(team.data$TOV) # the average of TOV of all teams
+
+teams_greater_avg_TOV <- team.data %>% # find teams that have greater TOV than average
+  filter(TOV > mean(team.data$TOV))
+
+avg_blk <- mean(teams_greater_avg_TOV$BLK)
+avg_stl <- mean(teams_greater_avg_TOV$STL)
 
 # Get the team that had the highest Total Rebounds (TRB) only with the columns 
 # Team and TRB  *using one line of code*
-
+team.data %>% 
+  select(Team, TRB) %>% 
+  arrange(desc(TRB)) %>% 
+  mutate(place = row_number()) %>%
+  filter(place == 1) %>% 
+  head()
 
 # Print only the name of the team that had the highest total rebounds
 # (that also happens to be the greatest team of all time)
