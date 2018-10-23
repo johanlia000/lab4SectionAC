@@ -45,7 +45,7 @@ TRB_best_teams <- team.data %>%
 
 # Print only the name of the team that had the highest total rebounds
 # (that also happens to be the greatest team of all time)
-
+paste(TRB_best_teams$Team)
 
 ## Let's change gears!
 
@@ -70,8 +70,17 @@ pokemon %>%
 #THAT HAVE A HIGHER ATTACK THAN DEFENSE VALUE
 #NOTE: IT SHOULD BE DONE IN ONE RUN OF DPLYR
 #HINT : Look into count() function by dplyr
+pokemon %>% 
+  group_by(Legendary) %>% 
+  count()
 
 #Find the generation that has the most number of pokemons with Type.1 as "Fire"
+pokemon %>% 
+  group_by(Generation) %>% 
+  filter(Type.1 == "Fire") %>% 
+  count() %>% 
+  arrange(desc(n)) %>% 
+  filter()
 
 # WHICH Type 1 pokemon has the overall within group max value of SUM of HP, Attack, Defense, Sp..Att, Sp.Def, Speed
 #HINT : LOOK AT THE DATASET! - THERE IS A SUPER EASY WAY TO DO THIS.
