@@ -36,7 +36,7 @@ avg_stl <- mean(teams_greater_avg_TOV$STL)
 
 # Get the team that had the highest Total Rebounds (TRB) only with the columns 
 # Team and TRB  *using one line of code*
-team.data %>% 
+TRB_best_teams <- team.data %>% 
   select(Team, TRB) %>% 
   arrange(desc(TRB)) %>% 
   mutate(place = row_number()) %>%
@@ -51,13 +51,20 @@ team.data %>%
 
 # Read in the Pokemon data from the data directory  
 # into a variable called `pokemon` using `read.csv`. Remember to not read strings in as factors.
+pokemon <- read.csv("data/pokemon.csv", stringsAsFactors = FALSE)
 
 # First, View() the data set to see what info you have to work with 
-
+View(pokemon)
 
 # Find all the Pokemon that are "Water" or "Ghost" Type 1 and have a speed higher than 50
+pokemon %>% 
+  filter((Type.1 == "Water" | Type.1 == "Ghost") & Speed > 50) %>% 
+  head()
 
 # Find the average HP, median HP, min HP and max HP for each of the type of generations
+pokemon %>% 
+  group_by(Generation) %>% 
+  summarize(mean = mean(HP), median = median(HP), max = max(HP))
 
 #FIND THE NUMBER OF POKEMONS THAT ARE LEGENDARY AND THE NUMBER OF POKEMONS THAT ARE NOT LEGENDARY 
 #THAT HAVE A HIGHER ATTACK THAN DEFENSE VALUE
